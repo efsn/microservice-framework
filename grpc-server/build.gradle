@@ -1,0 +1,20 @@
+dependencies {
+    compile project(":grpc-etcd")
+
+    compile lib.grpc.netty
+    compile lib.grpc.protobuf
+    compile lib.grpc.stub
+    compile lib.netty.native
+    compile lib.fastjson
+    compile "org.springframework.security.oauth:spring-security-oauth2"
+    compile "org.springframework.boot:spring-boot-starter-data-mongodb"
+    compile lib.influxdb
+    compile "com.hnair.components:component-cache:2.0.1-SNAPSHOT"
+    compile lib.spring.boot.starter.data.mongodb
+
+    compile(lib.etcd4j) {
+        exclude group: 'io.netty', module: 'netty-handler'
+    }
+
+    testCompile lib.spring.boot.starter.test
+}

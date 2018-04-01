@@ -1,0 +1,10 @@
+dependencies {
+    compile lib.netty.handler
+
+    compile(lib.etcd4j) {
+        exclude group: 'io.netty', module: 'netty-handler'
+    }
+
+    testCompile lib.spring.boot.starter.test
+}
+

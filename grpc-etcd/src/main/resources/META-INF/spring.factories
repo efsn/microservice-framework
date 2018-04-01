@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.elmi.grpc.etcd.EtcdAutoConfiguration,\
+cn.elmi.grpc.etcd.register.EtcdRegisterConfiguration

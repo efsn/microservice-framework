@@ -1,0 +1,21 @@
+# Eclipse
+/bin/
+/.settings/
+/.project
+/.classpath
+
+# IDEA
+/.idea/
+/*.iml
+
+# Maven
+/target/
+
+# Gradle
+/.gradle/
+/out/
+
+# Others
+/logs/
+/test/
+/test-output/

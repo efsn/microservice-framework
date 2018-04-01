@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.elmi.grpc.server.GrpcServerBootstrap,\
+cn.elmi.grpc.server.configuration.GrpcRegisterConfiguration,\
+cn.elmi.grpc.server.configuration.GrpcAutoConfiguration
+

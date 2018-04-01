@@ -1,0 +1,84 @@
+/**
+ buildscript的类型为script block（最上层），用于配置gradle的project实例
+ API文档为https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:buildscript(groovy.lang.Closure)
+ 其余的根script block有"allprojects", "dependencies", "configurations"等，更多的可见https://docs.gradle.org/current/dsl/的“Build script structure”一节。
+ Script Block是一种method的调用，传入的参数为configuration closure。执行后会对Project的属性进行配置
+ 此处的"buildscript"用于配置Project的build script的classpath
+ */
+
+buildscript {
+    ext {
+        springBootVersion = "1.5.9.RELEASE"
+    }
+
+    repositories {
+        mavenLocal()
+//        maven {
+//            url("https://plugins.gradle.org/m2/")
+//        }
+        maven {
+            url("http://repo1.maven.org/maven2/")
+        }
+    }
+
+    dependencies {
+        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.5"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+    }
+}
+
+apply from: "build-dependencies.gradle"
+
+subprojects {
+
+    apply plugin: "java"
+    apply plugin: "maven"
+    apply plugin: "idea"
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "com.google.protobuf"
+
+    group = "com.codeyn.microservice"
+    version = "1.0-SNAPSHOT"
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
+
+    repositories {
+        mavenLocal()
+        maven { url('http://repo1.maven.org/maven2/') }
+    }
+
+    configurations {
+        compile.exclude module: "commons-logging"
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom lib.spring.boot.dependencies
+        }
+    }
+
+    dependencies {
+        compile lib.spring.boot.starter.core,
+                lib.lombok,
+                lib.slf4j,
+                lib.logback.classic,
+                lib.logback.core
+
+        testCompile lib.testng
+    }
+
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: "http://10.72.46.201:8080/content/repositories/snapshots/")
+                repository(url: "http://10.72.46.201:8080/content/repositories/releases/")
+            }
+        }
+    }
+
+}

@@ -1,0 +1,21 @@
+grpc:
+  server:
+    port: 8800
+  interceptors:
+    - com.codeyn.aireye.interceptor.BusinessInterceptor // 业务处理拦截器
+    - com.codeyn.grpc.server.interceptor.TraceInterceptor // 日志追踪拦截器
+    - com.codeyn.grpc.server.interceptor.AuthorizationInterceptor // 添加授权拦截器
+    - com.codeyn.aireye.interceptor.TokenInterceptor // 添加认证拦截器
+    - com.codeyn.grpc.server.interceptor.CountInterceptor // 计数拦截器必须是最后一个添加的拦截器
+  airline: 8L
+  security:
+    tls: true
+    cert: certs/server.cer
+    key: certs/server.key
+
+etcd.uris:
+  - http://localhost:2379
+
+
+
+

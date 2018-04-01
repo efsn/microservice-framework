@@ -1,0 +1,68 @@
+ext {
+    springVersion = "4.2.5.RELEASE"
+    springSessionVersion = "1.3.1.RELEASE"
+
+    groovyVersion = "3.0.0-alpha-1"
+    guavaVersion = "23.0"
+    grpcVersion = "1.5.0"
+    logbackVersion = "1.2.3"
+
+    lib = [
+            grpc     : [
+                    protobuf: "io.grpc:grpc-protobuf:$grpcVersion",
+                    core    : "io.grpc:grpc-core:$grpcVersion",
+                    stub    : "io.grpc:grpc-stub:$grpcVersion",
+                    auth    : "io.grpc:grpc-auth:$grpcVersion",
+                    netty   : "io.grpc:grpc-netty:$grpcVersion"
+            ],
+            netty    : [native : "io.netty:netty-tcnative-boringssl-static:1.1.33.Fork26",
+                        handler: "io.netty:netty-handler:4.1.8.Final"],
+            protobuf : [format: "com.googlecode.protobuf-java-format:protobuf-java-format:1.4"],
+            etcd4j   : "org.mousio:etcd4j:2.11.0",
+
+            spring   : [
+                    boot: [
+                            dependencies: "org.springframework.boot:spring-boot-dependencies:$springBootVersion",
+                            starter     : [
+                                    core   : "org.springframework.boot:spring-boot-starter:$springBootVersion",
+                                    test   : "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
+                                    cache  : "org.springframework.boot:spring-boot-starter-cache:$springBootVersion",
+                                    hateoas: "org.springframework.boot:spring-boot-starter-hateoas:$springBootVersion",
+                                    data   : [
+                                            mongodb: "org.springframework.boot:spring-boot-starter-data-mongodb:$springBootVersion",
+                                            rest   : "org.springframework.boot:spring-boot-starter-data-rest:$springBootVersion",
+                                            jpa    : "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+                                    ]
+                            ]
+                    ],
+            ],
+
+            validator: "org.hibernate:hibernate-validator:5.4.1.Final",
+            servlet  : "javax.servlet:javax.servlet-api:3.1.0",
+
+            testng   : "org.testng:testng:6.11",
+            slf4j    : "org.slf4j:slf4j-api:1.7.21",
+            logback  : [
+                    core   : "ch.qos.logback:logback-core:$logbackVersion",
+                    classic: "ch.qos.logback:logback-classic:$logbackVersion"
+            ],
+            lombok   : "org.projectlombok:lombok:1.16.6",
+            fastjson : "com.alibaba:fastjson:1.2.30",
+
+            influxdb : "org.influxdb:influxdb-java:2.5",
+            redis    : "redis.clients:jedis:2.9.0",
+            mysql    : "mysql:mysql-connector-java:5.1.34",
+
+            apache   : [
+                    commons: [
+                            lang3: "org.apache.commons:commons-lang3:3.7",
+                            pool2: "org.apache.commons:commons-pool2:2.5.0"
+                    ]
+            ],
+
+            groovy   : "org.codehaus.groovy:groovy-all:$groovyVersion",
+            guava    : "com.google.guava:guava:$guavaVersion"
+    ]
+}
+
+

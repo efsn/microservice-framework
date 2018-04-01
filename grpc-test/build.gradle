@@ -1,0 +1,11 @@
+dependencies {
+    compile lib.grpc.netty
+    compile lib.grpc.protobuf
+    compile lib.grpc.stub
+    compile lib.grpc.auth
+    compile lib.netty.native
+    compile lib.guava
+    compile lib.testng
+
+    testCompile lib.spring.boot.starter.test
+}

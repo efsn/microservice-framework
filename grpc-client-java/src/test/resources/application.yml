@@ -1,0 +1,12 @@
+grpc:
+  client:
+    tls: true
+    cert: certs/server.cer
+    domain: silva
+    id: client_silva
+    secret: secret
+    grant: client_craterials
+    cache: initialCapacity=100,maximumSize=200,expireAfterWrite=1700s
+
+etcd.uris:
+  - http://127.0.0.1:2379
