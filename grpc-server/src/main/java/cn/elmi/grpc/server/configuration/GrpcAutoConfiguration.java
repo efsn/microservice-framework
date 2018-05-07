@@ -106,8 +106,7 @@ public class GrpcAutoConfiguration implements ApplicationContextAware {
             }
             serverBuilder.useTransportSecurity(cert, key);
         }
-        Server server = serverBuilder.build();
-        return server;
+        return serverBuilder.build();
     }
 
     @Bean

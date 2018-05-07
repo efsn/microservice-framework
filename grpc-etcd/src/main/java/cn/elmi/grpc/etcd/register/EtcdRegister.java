@@ -28,6 +28,7 @@ import java.util.List;
  */
 @Data
 public class EtcdRegister {
+
     private String prefix;
     private boolean isStarted;
     private EtcdClient client;

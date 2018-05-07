@@ -4,8 +4,33 @@ ext {
 
     groovyVersion = "3.0.0-alpha-1"
     guavaVersion = "23.0"
-    grpcVersion = "1.5.0"
+    grpcVersion = "1.9.1"
+
+    etcd4jVersion = "2.16.0"
+
+    protobufVersion = "3.5.1"
+    protobufJavaFormatVersion = "1.4"
+
     logbackVersion = "1.2.3"
+
+    nettyHandler = "4.1.17.Final"
+
+    validator = "5.4.1.Final"
+    testngVersion = "6.11"
+
+    servletVersion = "3.1.0"
+
+    slf4jVersion = "1.7.21"
+
+    lombokVersion = "1.16.16"
+
+    fastjsonVersion = "1.2.30"
+
+    influxdbVersion = "2.5"
+
+    jedisVersion = "2.9.0"
+
+    mysqlConnectorVersion = "5.1.34"
 
     lib = [
             grpc     : [
@@ -15,10 +40,16 @@ ext {
                     auth    : "io.grpc:grpc-auth:$grpcVersion",
                     netty   : "io.grpc:grpc-netty:$grpcVersion"
             ],
-            netty    : [native : "io.netty:netty-tcnative-boringssl-static:1.1.33.Fork26",
-                        handler: "io.netty:netty-handler:4.1.8.Final"],
-            protobuf : [format: "com.googlecode.protobuf-java-format:protobuf-java-format:1.4"],
-            etcd4j   : "org.mousio:etcd4j:2.11.0",
+            netty    : [
+                    native : "io.netty:netty-tcnative-boringssl-static:1.1.33.Fork26",
+                    handler: "io.netty:netty-handler:$nettyHandler"
+            ],
+            protobuf : [
+                    java  : "com.google.protobuf:protobuf-java:$protobufVersion",
+                    protoc: "com.google.protobuf:protoc:$protobufVersion",
+                    format: "com.googlecode.protobuf-java-format:protobuf-java-format:$protobufJavaFormatVersion"
+            ],
+            etcd4j   : "org.mousio:etcd4j:$etcd4jVersion",
 
             spring   : [
                     boot: [
@@ -37,21 +68,21 @@ ext {
                     ],
             ],
 
-            validator: "org.hibernate:hibernate-validator:5.4.1.Final",
-            servlet  : "javax.servlet:javax.servlet-api:3.1.0",
+            validator: "org.hibernate:hibernate-validator:$validator",
+            servlet  : "javax.servlet:javax.servlet-api:$servletVersion",
 
-            testng   : "org.testng:testng:6.11",
-            slf4j    : "org.slf4j:slf4j-api:1.7.21",
+            testng   : "org.testng:testng:$testngVersion",
+            slf4j    : "org.slf4j:slf4j-api:$slf4jVersion",
             logback  : [
                     core   : "ch.qos.logback:logback-core:$logbackVersion",
                     classic: "ch.qos.logback:logback-classic:$logbackVersion"
             ],
-            lombok   : "org.projectlombok:lombok:1.16.6",
-            fastjson : "com.alibaba:fastjson:1.2.30",
+            lombok   : "org.projectlombok:lombok:$lombokVersion",
+            fastjson : "com.alibaba:fastjson:$fastjsonVersion",
 
-            influxdb : "org.influxdb:influxdb-java:2.5",
-            redis    : "redis.clients:jedis:2.9.0",
-            mysql    : "mysql:mysql-connector-java:5.1.34",
+            influxdb : "org.influxdb:influxdb-java:$influxdbVersion",
+            redis    : "redis.clients:jedis:$jedisVersion",
+            mysql    : "mysql:mysql-connector-java:$mysqlConnectorVersion",
 
             apache   : [
                     commons: [

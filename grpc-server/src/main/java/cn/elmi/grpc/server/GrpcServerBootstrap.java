@@ -23,12 +23,13 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.SmartLifecycle;
 
+
 /**
  * @author Arthur
  * @since 1.0
  */
-@ConditionalOnBean(GrpcServer.class)
 @AutoConfigureAfter(GrpcRegisterConfiguration.class)
+@ConditionalOnBean(GrpcServer.class)
 @Slf4j
 public class GrpcServerBootstrap implements SmartLifecycle {
 

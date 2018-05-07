@@ -13,12 +13,7 @@ buildscript {
 
     repositories {
         mavenLocal()
-//        maven {
-//            url("https://plugins.gradle.org/m2/")
-//        }
-        maven {
-            url("http://repo1.maven.org/maven2/")
-        }
+        mavenCentral()
     }
 
     dependencies {
@@ -38,7 +33,7 @@ subprojects {
     apply plugin: "io.spring.dependency-management"
     apply plugin: "com.google.protobuf"
 
-    group = "com.codeyn.microservice"
+    group = "cn.elmi.microservice"
     version = "1.0-SNAPSHOT"
 
     sourceCompatibility = 1.8
@@ -48,7 +43,7 @@ subprojects {
 
     repositories {
         mavenLocal()
-        maven { url('http://repo1.maven.org/maven2/') }
+        mavenCentral()
     }
 
     configurations {
@@ -71,6 +66,38 @@ subprojects {
         testCompile lib.testng
     }
 
+    protobuf {
+        protoc {
+            artifact = "com.google.protobuf:protoc:3.5.1"
+        }
+
+        plugins {
+            grpc {
+                artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+            }
+        }
+
+        generateProtoTasks {
+            all().each { task ->
+                task.builtins {
+                    remove java
+                    java {}
+                }
+
+                task.plugins {
+                    grpc {
+
+                    }
+                }
+            }
+        }
+
+        generatedFilesBaseDir = "$projectDir/src/generated"
+    }
+
+    clean {
+        delete protobuf.generatedFilesBaseDir
+    }
 
     uploadArchives {
         repositories {

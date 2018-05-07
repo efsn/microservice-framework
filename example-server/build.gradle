@@ -1,0 +1,8 @@
+dependencies {
+    compile project(":grpc-server")
+    compile lib.protobuf.java
+    compile lib.protobuf.protoc
+
+    testCompile lib.spring.boot.starter.test
+}
+

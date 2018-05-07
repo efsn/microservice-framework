@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package oauth;
+
+option java_multiple_files = true;
+option java_package = "cn.elmi.grpc.example.oauth";
+option java_outer_classname = "GrpcOAuth";
+
+service OAuth {
+    rpc getAccessToken (OAuthRequest) returns (OAuthResponse) {
+    }
+}
+
+message OAuthRequest {
+    /** 授权类型 */
+    string grantType = 1;
+
+    /** key */
+    string key = 2;
+
+    /** 私钥 */
+    string keySecret = 3;
+
+    /** 范围 */
+    string scope = 4;
+
+    /** 签名 */
+    string token = 5;
+
+    /** 用户名 */
+    string userName = 6;
+
+    /** 密码 */
+    string password = 7;
+}
+
+message OAuthResponse {
+    /** 访问签名 */
+    string accessToken = 1;
+
+    /** 签名类型 */
+    string type = 2;
+
+    /** 过期时间/毫秒 */
+    int64 expire = 3;
+}

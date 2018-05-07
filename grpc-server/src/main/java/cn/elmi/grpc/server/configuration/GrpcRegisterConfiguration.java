@@ -60,7 +60,7 @@ public class GrpcRegisterConfiguration {
             log.info("grpc service: {}", interfaceName);
         }
 
-        etcdRegister.setStarted(grpcServerProp.isRegist());
+        etcdRegister.setStarted(grpcServerProp.isRegistEtcd());
         return etcdRegister;
     }
 

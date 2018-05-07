@@ -45,7 +45,7 @@ public class MonitorConfiguration {
      */
     @PostConstruct
     public void subscrible() {
-        new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(), r -> {
+        new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), r -> {
             Thread t = new Thread(Thread.currentThread().getThreadGroup(), r, "api-monitor-subscribe", 0);
             if (t.isDaemon()) {
                 t.setDaemon(false);

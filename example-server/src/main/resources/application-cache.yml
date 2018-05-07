@@ -1,0 +1,25 @@
+# XCache configuration
+components:
+  cache:
+    serializer: java
+    regions: 
+        default: initialCapacity=100,maximumSize=200,expireAfterWrite=1800s
+        global: initialCapacity=100,maximumSize=200
+
+  # Redis config
+  redis: 
+    host: 120.25.240.225
+    port: 6379
+    passwd: mrxudms@2015
+    timeout: 3600
+    dbIndex: 13
+    pool: 
+      maxTotal: 300
+      maxIdel: 100
+      maxWaitMillis: 1000
+    sentinel:
+      master: 
+      nodes: redis1.elmi.cn:26379,redis1.elmi.com:26379,redis3.8l-air.com:26379
+
+
+

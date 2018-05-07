@@ -14,22 +14,31 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package cn.elmi.grpc.server.consts;
+package cn.elmi.example.server.service;
+
+import cn.elmi.grpc.example.hello.HelloGrpc;
+import cn.elmi.grpc.example.hello.HelloRequest;
+import cn.elmi.grpc.example.hello.HelloResponse;
+import cn.elmi.grpc.server.annotation.GrpcService;
+import io.grpc.stub.StreamObserver;
 
 /**
  * @author Arthur
  * @since 1.0
  */
-public interface CacheRegions {
+@GrpcService(auth = false)
+public class OAuthService extends HelloGrpc.HelloImplBase {
 
-    String COMMON_REGION = "common";
+    @Override
+    public void say(HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
+        String question = request.getQuestion();
+        HelloResponse response = null;
+        if ("Hello".equalsIgnoreCase(question)) {
+            response = HelloResponse.newBuilder().setAnswer("fuck the world").build();
+        }
 
-    String TOKEN_CLIENT = "token_client";
 
-    String TOKEN_PASSWD = "token_passwd";
-
-    String CLIENT_REGION = "client";
-
-    String TOKEN_REGION = "token";
+        super.say(request, responseObserver);
+    }
 
 }

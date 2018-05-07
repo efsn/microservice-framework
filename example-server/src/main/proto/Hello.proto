@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package hello;
+
+option java_multiple_files = true;
+option java_package = "cn.elmi.grpc.example.hello";
+option java_outer_classname = "GrpcHello";
+
+service Hello {
+    rpc say (HelloRequest) returns (HelloResponse) {
+    }
+}
+
+message HelloRequest {
+
+    string question = 1;
+
+}
+
+message HelloResponse {
+
+    string answer = 1;
+
+}

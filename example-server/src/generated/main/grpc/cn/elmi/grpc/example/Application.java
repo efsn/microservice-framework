@@ -14,22 +14,18 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package cn.elmi.grpc.server.consts;
+package cn.elmi.grpc.example;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author Arthur
  * @since 1.0
  */
-public interface CacheRegions {
-
-    String COMMON_REGION = "common";
-
-    String TOKEN_CLIENT = "token_client";
-
-    String TOKEN_PASSWD = "token_passwd";
-
-    String CLIENT_REGION = "client";
-
-    String TOKEN_REGION = "token";
-
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 }

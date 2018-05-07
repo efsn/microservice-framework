@@ -14,22 +14,35 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package cn.elmi.grpc.server.consts;
+package cn.elmi.grpc.server.props;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.data.annotation.Id;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Arthur
  * @since 1.0
  */
-public interface CacheRegions {
+@ConfigurationProperties("client")
+@Data
+public class ClientProp implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    String COMMON_REGION = "common";
+    @Id
+    private String id;
 
-    String TOKEN_CLIENT = "token_client";
-
-    String TOKEN_PASSWD = "token_passwd";
-
-    String CLIENT_REGION = "client";
-
-    String TOKEN_REGION = "token";
+    private String clientId;
+    private String clientSecret;
+    private String grantType;
+    private Set<String> whiteIp = new HashSet<>();
+    private Set<String> blackIp = new HashSet<>();
+    private Set<String> permission = new HashSet<>();
+    private String status;
+    private String profileId; // 渠道对应的账号
 
 }
