@@ -17,11 +17,13 @@
 package cn.elmi.microservice.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Arthur
  * @since 1.0
  */
+@Repository
 public interface APIRepository extends MongoRepository<API, String> {
 
 }

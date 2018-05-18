@@ -1,5 +1,12 @@
+/*
+sourceSets {
+	main.java.srcDirs = ['src/main/java', 'src-gen/main/grpc', 'src-gen/main/java', 'src/main/proto']
+	main.resources.srcDirs = ['src/main/resources']
+}
+*/
+
 dependencies {
-    compile project(":grpc-server")
+    compile project(':grpc-server')
     compile lib.protobuf.java
     compile lib.protobuf.protoc
 

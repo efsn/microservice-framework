@@ -14,35 +14,30 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package cn.elmi.grpc.server.props;
+package cn.elmi.example.server.service;
 
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.data.annotation.Id;
-
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import cn.elmi.grpc.example.hello.HelloGrpc;
+import cn.elmi.grpc.example.hello.HelloRequest;
+import cn.elmi.grpc.example.hello.HelloResponse;
+import cn.elmi.grpc.server.annotation.GrpcService;
+import io.grpc.stub.StreamObserver;
 
 /**
  * @author Arthur
  * @since 1.0
  */
-@ConfigurationProperties("client")
-@Data
-public class ClientProp implements Serializable {
-    private static final long serialVersionUID = 1L;
+@GrpcService(auth = false)
+public class HelloService extends HelloGrpc.HelloImplBase {
 
-    @Id
-    private String id;
-
-    private String clientId;
-    private String clientSecret;
-    private String grantType;
-    private Set<String> whiteIp = new HashSet<>();
-    private Set<String> blackIp = new HashSet<>();
-    private Set<String> permission = new HashSet<>();
-    private String status;
-    private String profileId; // 渠道对应的账号
+    @Override
+    public void say(HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
+        String question = request.getQuestion();
+        HelloResponse response = null;
+        if ("Hello".equalsIgnoreCase(question)) {
+            response = HelloResponse.newBuilder().setAnswer("fuck the world").build();
+        }
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
 
 }

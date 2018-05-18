@@ -12,13 +12,9 @@ service Hello {
 }
 
 message HelloRequest {
-
     string question = 1;
-
 }
 
 message HelloResponse {
-
     string answer = 1;
-
 }

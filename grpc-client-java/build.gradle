@@ -8,7 +8,7 @@ dependencies {
     compile lib.apache.commons.lang3
     compile lib.guava
 
-    compile "com.hnair.components:component-cache:2.0.1-SNAPSHOT"
+    compile "cn.elmi.components:component-cache-spring-boot-starter:1.0-SNAPSHOT"
 
     compile(lib.etcd4j) {
         exclude group: 'io.netty', module: 'netty-handler'

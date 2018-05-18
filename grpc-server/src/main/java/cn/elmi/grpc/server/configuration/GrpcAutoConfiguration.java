@@ -25,12 +25,9 @@ import cn.elmi.grpc.server.utils.ApplicationUtil;
 import cn.elmi.grpc.server.utils.CertFileUtil;
 import cn.elmi.grpc.server.utils.GrpcUtil;
 import cn.elmi.microservice.influxdb.InfluxdbProp;
-import cn.elmi.microservice.repository.API;
 import cn.elmi.microservice.repository.APIRepository;
 import io.grpc.*;
 import lombok.extern.slf4j.Slf4j;
-import org.influxdb.InfluxDB;
-import org.influxdb.InfluxDBFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -46,7 +43,6 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Arthur
@@ -109,6 +105,7 @@ public class GrpcAutoConfiguration implements ApplicationContextAware {
         return serverBuilder.build();
     }
 
+    /*
     @Bean
     public InfluxDB influxdb() {
         InfluxDB influxDB = InfluxDBFactory.connect(influxdbProp.getUrl(), influxdbProp.getUsername(),
@@ -116,6 +113,7 @@ public class GrpcAutoConfiguration implements ApplicationContextAware {
         influxDB.enableBatch(2000, 100, TimeUnit.MILLISECONDS);
         return influxDB;
     }
+    */
 
     private ServerBuilder<?> bindService() {
         ServerBuilder<?> serverBuilder = ServerBuilder.forPort(grpcServerProp.getPort());
@@ -154,11 +152,13 @@ public class GrpcAutoConfiguration implements ApplicationContextAware {
 
         log.info("Grpc api count is: {}", GrpcUtil.services.size());
 
+        /*
         if (GrpcUtil.services.size() > 0) {
             log.info("Save apis.");
             API api = new API(grpcServerProp.getName(), System.currentTimeMillis(), GrpcUtil.services);
             apiRepository.save(api);
         }
+        */
 
         return serverBuilder;
     }

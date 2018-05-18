@@ -16,13 +16,13 @@
 
 package cn.elmi.grpc.server.interceptor;
 
+import cn.elmi.components.cache.CacheChannel;
+import cn.elmi.components.cache.model.CacheElement;
 import cn.elmi.grpc.server.consts.CacheRegions;
 import cn.elmi.grpc.server.consts.RequestStatus;
 import cn.elmi.grpc.server.utils.GrpcUtil;
 import cn.elmi.microservice.repository.Client;
 import cn.elmi.microservice.repository.ClientRepository;
-import com.hnair.components.cache.CacheChannel;
-import com.hnair.components.cache.model.CacheElement;
 import io.grpc.Metadata;
 import io.grpc.Metadata.Key;
 import io.grpc.ServerCall;
@@ -58,10 +58,7 @@ public class AuthorizationInterceptor extends BaseServerInterceptor {
         String clientId = headers.get(Key.of(GrpcUtil.CLIENT_ID, Metadata.ASCII_STRING_MARSHALLER));
 
         /* 客户端配置信息 */
-        CacheElement<String, Client> elm = channel.get(CacheRegions.CLIENT_REGION, clientId, () -> {
-            return clientRepository.findByClientId(clientId);
-        });
-
+        CacheElement<String, Client> elm = channel.get(CacheRegions.CLIENT_REGION, clientId, () -> clientRepository.findByClientId(clientId));
         Client client = elm.getValue();
 
         if (null != client) {

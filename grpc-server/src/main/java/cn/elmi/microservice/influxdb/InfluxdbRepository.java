@@ -24,7 +24,6 @@ import org.influxdb.InfluxDB;
 import org.influxdb.dto.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
@@ -32,7 +31,7 @@ import java.lang.reflect.Method;
  * @author Arthur
  * @since 1.0
  */
-@Component
+//@Component
 @Slf4j
 public class InfluxdbRepository {
     @Autowired

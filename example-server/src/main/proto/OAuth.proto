@@ -15,11 +15,11 @@ message OAuthRequest {
     /** 授权类型 */
     string grantType = 1;
 
-    /** key */
-    string key = 2;
+    /** clientId */
+    string clientId = 2;
 
     /** 私钥 */
-    string keySecret = 3;
+    string clientSecret = 3;
 
     /** 范围 */
     string scope = 4;
@@ -42,5 +42,5 @@ message OAuthResponse {
     string type = 2;
 
     /** 过期时间/毫秒 */
-    int64 expire = 3;
+    int64 expired = 3;
 }

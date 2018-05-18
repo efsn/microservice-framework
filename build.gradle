@@ -29,6 +29,7 @@ subprojects {
     apply plugin: "java"
     apply plugin: "maven"
     apply plugin: "idea"
+//    apply plugin: "eclipse"
     apply plugin: "org.springframework.boot"
     apply plugin: "io.spring.dependency-management"
     apply plugin: "com.google.protobuf"
@@ -92,7 +93,7 @@ subprojects {
             }
         }
 
-        generatedFilesBaseDir = "$projectDir/src/generated"
+        generatedFilesBaseDir = "$projectDir/src-gen"
     }
 
     clean {

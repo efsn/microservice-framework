@@ -16,11 +16,11 @@
 
 package cn.elmi.grpc.server.monitor;
 
+import cn.elmi.components.cache.CacheChannel;
 import cn.elmi.grpc.etcd.register.EtcdRegister;
 import cn.elmi.grpc.server.consts.MessageType;
 import cn.elmi.grpc.server.props.GrpcServerProp;
 import cn.elmi.grpc.server.utils.InetAddressUtil;
-import com.hnair.components.cache.CacheChannel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

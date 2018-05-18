@@ -4,8 +4,8 @@
 TODO
 - profile-${env}.gradle
 - maven remote repository deploy
-- protobuf plugin
-    - os plugin(os-maven-plugin)
+- ~~protobuf plugin~~
+    - ~~os plugin(os-maven-plugin)~~
 
 
 ## SpringBoot

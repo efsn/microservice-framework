@@ -20,7 +20,6 @@ import cn.elmi.grpc.server.consts.RequestStatus;
 import cn.elmi.grpc.server.monitor.MonitorContext;
 import cn.elmi.grpc.server.utils.GrpcUtil;
 import cn.elmi.microservice.influxdb.GrpcRequest;
-import cn.elmi.microservice.influxdb.InfluxdbRepository;
 import io.grpc.*;
 import io.grpc.ServerCall.Listener;
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +35,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class CountInterceptor extends BaseServerInterceptor {
 
+    /*
     @Autowired
     private InfluxdbRepository influxdb;
+    */
 
     @Autowired
     private MonitorContext monitorContext;
@@ -120,7 +121,7 @@ public class CountInterceptor extends BaseServerInterceptor {
                             call.close(Status.UNKNOWN, trailers);
                         } finally {
                             log.debug("Save grpc request record: {}", request);
-                            influxdb.saveRequestByOkHttp(request);
+//                            influxdb.saveRequestByOkHttp(request);
                         }
                     }
 
@@ -147,7 +148,7 @@ public class CountInterceptor extends BaseServerInterceptor {
                 request.setStatus(RequestStatus.DY);
             }
             /* 直接保存请求记录 */
-            influxdb.saveRequestByOkHttp(request);
+//            influxdb.saveRequestByOkHttp(request);
         }
 
         MDC.clear();
