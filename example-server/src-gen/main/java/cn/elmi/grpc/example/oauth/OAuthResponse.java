@@ -567,7 +567,7 @@ public final class OAuthResponse extends
 
         /**
          * <pre>
-         * * 访问签名
+         ** 访问签名
          * </pre>
          *
          * <code>string accessToken = 1;</code>

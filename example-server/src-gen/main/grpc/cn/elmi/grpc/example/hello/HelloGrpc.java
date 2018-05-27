@@ -10,7 +10,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 /**
  */
 @javax.annotation.Generated(
-        value = "by gRPC proto compiler (version 1.9.1)",
+        value = "by gRPC proto compiler (version 1.12.0)",
         comments = "Source: Hello.proto")
 public final class HelloGrpc {
 
@@ -23,7 +23,7 @@ public final class HelloGrpc {
     @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
     @java.lang.Deprecated // Use {@link #getSayMethod()} instead.
     public static final io.grpc.MethodDescriptor<cn.elmi.grpc.example.hello.HelloRequest,
-            cn.elmi.grpc.example.hello.HelloResponse> METHOD_SAY = getSayMethod();
+            cn.elmi.grpc.example.hello.HelloResponse> METHOD_SAY = getSayMethodHelper();
 
     private static volatile io.grpc.MethodDescriptor<cn.elmi.grpc.example.hello.HelloRequest,
             cn.elmi.grpc.example.hello.HelloResponse> getSayMethod;
@@ -31,6 +31,11 @@ public final class HelloGrpc {
     @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
     public static io.grpc.MethodDescriptor<cn.elmi.grpc.example.hello.HelloRequest,
             cn.elmi.grpc.example.hello.HelloResponse> getSayMethod() {
+        return getSayMethodHelper();
+    }
+
+    private static io.grpc.MethodDescriptor<cn.elmi.grpc.example.hello.HelloRequest,
+            cn.elmi.grpc.example.hello.HelloResponse> getSayMethodHelper() {
         io.grpc.MethodDescriptor<cn.elmi.grpc.example.hello.HelloRequest, cn.elmi.grpc.example.hello.HelloResponse> getSayMethod;
         if ((getSayMethod = HelloGrpc.getSayMethod) == null) {
             synchronized (HelloGrpc.class) {
@@ -84,14 +89,14 @@ public final class HelloGrpc {
          */
         public void say(cn.elmi.grpc.example.hello.HelloRequest request,
                         io.grpc.stub.StreamObserver<cn.elmi.grpc.example.hello.HelloResponse> responseObserver) {
-            asyncUnimplementedUnaryCall(getSayMethod(), responseObserver);
+            asyncUnimplementedUnaryCall(getSayMethodHelper(), responseObserver);
         }
 
         @java.lang.Override
         public final io.grpc.ServerServiceDefinition bindService() {
             return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
                     .addMethod(
-                            getSayMethod(),
+                            getSayMethodHelper(),
                             asyncUnaryCall(
                                     new MethodHandlers<
                                             cn.elmi.grpc.example.hello.HelloRequest,
@@ -124,7 +129,7 @@ public final class HelloGrpc {
         public void say(cn.elmi.grpc.example.hello.HelloRequest request,
                         io.grpc.stub.StreamObserver<cn.elmi.grpc.example.hello.HelloResponse> responseObserver) {
             asyncUnaryCall(
-                    getChannel().newCall(getSayMethod(), getCallOptions()), request, responseObserver);
+                    getChannel().newCall(getSayMethodHelper(), getCallOptions()), request, responseObserver);
         }
     }
 
@@ -150,7 +155,7 @@ public final class HelloGrpc {
          */
         public cn.elmi.grpc.example.hello.HelloResponse say(cn.elmi.grpc.example.hello.HelloRequest request) {
             return blockingUnaryCall(
-                    getChannel(), getSayMethod(), getCallOptions(), request);
+                    getChannel(), getSayMethodHelper(), getCallOptions(), request);
         }
     }
 
@@ -177,7 +182,7 @@ public final class HelloGrpc {
         public com.google.common.util.concurrent.ListenableFuture<cn.elmi.grpc.example.hello.HelloResponse> say(
                 cn.elmi.grpc.example.hello.HelloRequest request) {
             return futureUnaryCall(
-                    getChannel().newCall(getSayMethod(), getCallOptions()), request);
+                    getChannel().newCall(getSayMethodHelper(), getCallOptions()), request);
         }
     }
 
@@ -267,7 +272,7 @@ public final class HelloGrpc {
                 if (result == null) {
                     serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
                             .setSchemaDescriptor(new HelloFileDescriptorSupplier())
-                            .addMethod(getSayMethod())
+                            .addMethod(getSayMethodHelper())
                             .build();
                 }
             }

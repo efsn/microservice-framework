@@ -77,7 +77,7 @@ public class ChannelPoolFactory extends BaseKeyedPooledObjectFactory<Node, Manag
         String address = key.getIp() + ":" + key.getPort();
         try {
             channel = tls ? createTLSChannel(key)
-                    : ManagedChannelBuilder.forAddress(key.getIp(), key.getPort()).usePlaintext(true).build();
+                    : ManagedChannelBuilder.forAddress(key.getIp(), key.getPort()).usePlaintext().build();
             if (forbiddenMap.containsKey(address)
                     && System.currentTimeMillis() - forbiddenMap.get(address).longValue() < FORBIDDEN_TIME) {
                 throw new GrpcClientException(FORBIDDEN_TIME + "ms forbid to connect the node: " + address);

@@ -1,3 +1,5 @@
+spring.profiles.include: cache
+
 grpc:
   server:
     name: example-server
@@ -10,13 +12,13 @@ grpc:
     #- cn.elmi.example.interceptor.TokenInterceptor // 添加认证拦截器
     - cn.elmi.grpc.server.interceptor.CountInterceptor // 计数拦截器必须是最后一个添加的拦截器
   security:
-    tls: false
+    tls: true
     cert: certs/server.cer
     key: certs/server.key
 
 etcd:
-  retryTimes: 1;
-  beforeRetryTime: 300;
+  retryTimes: 1
+  beforeRetryTime: 300
   uris:
     - http://127.0.0.1:2379
   discovery:
@@ -26,5 +28,3 @@ etcd:
 spring.cloud.etcd.discovery.heartbeat: 5000
 spring.data.mongodb.uri: mongodb://127.0.0.1:27017/microservice
 
-
-spring.profiles.include: cache

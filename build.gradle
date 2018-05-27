@@ -8,17 +8,21 @@
 
 buildscript {
     ext {
-        springBootVersion = "1.5.9.RELEASE"
+        springBootVersion = "2.0.2.RELEASE"
     }
 
     repositories {
         mavenLocal()
         mavenCentral()
+//        maven{
+//            url("http://maven.aliyun.com/nexus/content/repositories/central")
+//        }
     }
 
     dependencies {
         classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.5"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "com.google.gradle:osdetector-gradle-plugin:1.4.0"
     }
 }
 
@@ -29,7 +33,6 @@ subprojects {
     apply plugin: "java"
     apply plugin: "maven"
     apply plugin: "idea"
-//    apply plugin: "eclipse"
     apply plugin: "org.springframework.boot"
     apply plugin: "io.spring.dependency-management"
     apply plugin: "com.google.protobuf"
@@ -48,12 +51,23 @@ subprojects {
     }
 
     configurations {
-        compile.exclude module: "commons-logging"
+        all*.exclude module: "commons-logging"
     }
 
     dependencyManagement {
         imports {
             mavenBom lib.spring.boot.dependencies
+        }
+    }
+
+    jar {
+        enabled = true
+    }
+
+    // springboot2.0 new feature
+    bootJar {
+        manifest {
+            attributes "Start-Class": "cn.elmi.Application"
         }
     }
 
@@ -69,7 +83,7 @@ subprojects {
 
     protobuf {
         protoc {
-            artifact = "com.google.protobuf:protoc:3.5.1"
+            artifact = "com.google.protobuf:protoc:$protobufVersion"
         }
 
         plugins {
@@ -98,6 +112,13 @@ subprojects {
 
     clean {
         delete protobuf.generatedFilesBaseDir
+    }
+
+    task protoJar(type: Jar, dependsOn: ["build"]) {
+        archiveName = "example-proto-${version}.jar"
+        from("build/classes/java/main/")
+        destinationDir = file("build/libs")
+        include("cn/elmi/grpc/**/*.class")
     }
 
     uploadArchives {

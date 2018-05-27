@@ -10,7 +10,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 /**
  */
 @javax.annotation.Generated(
-        value = "by gRPC proto compiler (version 1.9.1)",
+        value = "by gRPC proto compiler (version 1.12.0)",
         comments = "Source: OAuth.proto")
 public final class OAuthGrpc {
 
@@ -23,7 +23,7 @@ public final class OAuthGrpc {
     @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
     @java.lang.Deprecated // Use {@link #getGetAccessTokenMethod()} instead.
     public static final io.grpc.MethodDescriptor<cn.elmi.grpc.example.oauth.OAuthRequest,
-            cn.elmi.grpc.example.oauth.OAuthResponse> METHOD_GET_ACCESS_TOKEN = getGetAccessTokenMethod();
+            cn.elmi.grpc.example.oauth.OAuthResponse> METHOD_GET_ACCESS_TOKEN = getGetAccessTokenMethodHelper();
 
     private static volatile io.grpc.MethodDescriptor<cn.elmi.grpc.example.oauth.OAuthRequest,
             cn.elmi.grpc.example.oauth.OAuthResponse> getGetAccessTokenMethod;
@@ -31,6 +31,11 @@ public final class OAuthGrpc {
     @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
     public static io.grpc.MethodDescriptor<cn.elmi.grpc.example.oauth.OAuthRequest,
             cn.elmi.grpc.example.oauth.OAuthResponse> getGetAccessTokenMethod() {
+        return getGetAccessTokenMethodHelper();
+    }
+
+    private static io.grpc.MethodDescriptor<cn.elmi.grpc.example.oauth.OAuthRequest,
+            cn.elmi.grpc.example.oauth.OAuthResponse> getGetAccessTokenMethodHelper() {
         io.grpc.MethodDescriptor<cn.elmi.grpc.example.oauth.OAuthRequest, cn.elmi.grpc.example.oauth.OAuthResponse> getGetAccessTokenMethod;
         if ((getGetAccessTokenMethod = OAuthGrpc.getGetAccessTokenMethod) == null) {
             synchronized (OAuthGrpc.class) {
@@ -84,14 +89,14 @@ public final class OAuthGrpc {
          */
         public void getAccessToken(cn.elmi.grpc.example.oauth.OAuthRequest request,
                                    io.grpc.stub.StreamObserver<cn.elmi.grpc.example.oauth.OAuthResponse> responseObserver) {
-            asyncUnimplementedUnaryCall(getGetAccessTokenMethod(), responseObserver);
+            asyncUnimplementedUnaryCall(getGetAccessTokenMethodHelper(), responseObserver);
         }
 
         @java.lang.Override
         public final io.grpc.ServerServiceDefinition bindService() {
             return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
                     .addMethod(
-                            getGetAccessTokenMethod(),
+                            getGetAccessTokenMethodHelper(),
                             asyncUnaryCall(
                                     new MethodHandlers<
                                             cn.elmi.grpc.example.oauth.OAuthRequest,
@@ -124,7 +129,7 @@ public final class OAuthGrpc {
         public void getAccessToken(cn.elmi.grpc.example.oauth.OAuthRequest request,
                                    io.grpc.stub.StreamObserver<cn.elmi.grpc.example.oauth.OAuthResponse> responseObserver) {
             asyncUnaryCall(
-                    getChannel().newCall(getGetAccessTokenMethod(), getCallOptions()), request, responseObserver);
+                    getChannel().newCall(getGetAccessTokenMethodHelper(), getCallOptions()), request, responseObserver);
         }
     }
 
@@ -150,7 +155,7 @@ public final class OAuthGrpc {
          */
         public cn.elmi.grpc.example.oauth.OAuthResponse getAccessToken(cn.elmi.grpc.example.oauth.OAuthRequest request) {
             return blockingUnaryCall(
-                    getChannel(), getGetAccessTokenMethod(), getCallOptions(), request);
+                    getChannel(), getGetAccessTokenMethodHelper(), getCallOptions(), request);
         }
     }
 
@@ -177,7 +182,7 @@ public final class OAuthGrpc {
         public com.google.common.util.concurrent.ListenableFuture<cn.elmi.grpc.example.oauth.OAuthResponse> getAccessToken(
                 cn.elmi.grpc.example.oauth.OAuthRequest request) {
             return futureUnaryCall(
-                    getChannel().newCall(getGetAccessTokenMethod(), getCallOptions()), request);
+                    getChannel().newCall(getGetAccessTokenMethodHelper(), getCallOptions()), request);
         }
     }
 
@@ -267,7 +272,7 @@ public final class OAuthGrpc {
                 if (result == null) {
                     serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
                             .setSchemaDescriptor(new OAuthFileDescriptorSupplier())
-                            .addMethod(getGetAccessTokenMethod())
+                            .addMethod(getGetAccessTokenMethodHelper())
                             .build();
                 }
             }

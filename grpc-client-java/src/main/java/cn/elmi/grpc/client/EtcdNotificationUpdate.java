@@ -116,7 +116,6 @@ public class EtcdNotificationUpdate implements ServerListUpdater {
 
         private static final Thread SHUTDOWN_THREAD = new Thread(() -> {
             DEFAULT_SERVER_LIST_UPDATE_EXECUTOR.shutdown();
-            Runtime.getRuntime().removeShutdownHook(LazyHolder.SHUTDOWN_THREAD);
         });
 
         static {

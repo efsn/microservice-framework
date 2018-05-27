@@ -1,0 +1,16 @@
+spring.profiles.include: cache
+
+grpc:
+  client:
+    server: example-server
+    tls: true
+    cert: certs/ca.cer
+    domain: www.8l-air.com
+    id: example-client
+    secret: secret
+    grant: client_craterials
+    cache: initialCapacity=100,maximumSize=200,expireAfterWrite=1700s
+
+etcd.uris:
+  - http://127.0.0.1:2379
+

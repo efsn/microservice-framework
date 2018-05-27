@@ -14,30 +14,30 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package cn.elmi.example.server.service;
+package cn.elmi.example.client;
 
+import cn.elmi.grpc.client.annotation.GrpcClient;
 import cn.elmi.grpc.example.hello.HelloGrpc;
 import cn.elmi.grpc.example.hello.HelloRequest;
 import cn.elmi.grpc.example.hello.HelloResponse;
-import cn.elmi.grpc.server.annotation.GrpcService;
-import io.grpc.stub.StreamObserver;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Arthur
  * @since 1.0
  */
-@GrpcService
-public class HelloService extends HelloGrpc.HelloImplBase {
+@Component
+@Slf4j
+public class BlockingStubService {
 
-    @Override
-    public void say(HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
-        String question = request.getQuestion();
-        HelloResponse response = null;
-        if ("Hello".equalsIgnoreCase(question)) {
-            response = HelloResponse.newBuilder().setAnswer("fuck the world").build();
-        }
-        responseObserver.onNext(response);
-        responseObserver.onCompleted();
+    @GrpcClient
+    private HelloGrpc.HelloBlockingStub helloBlockingStub;
+
+    public void say(String message) {
+        HelloRequest request = HelloRequest.newBuilder().setQuestion(message).build();
+        HelloResponse response = helloBlockingStub.say(request);
+        log.debug("Blocking say: {}", response.getAnswer());
     }
 
 }

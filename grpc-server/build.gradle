@@ -1,20 +1,20 @@
 dependencies {
     compile project(":grpc-etcd")
 
+    compile lib.netty.nativeBoringssl
+
     compile lib.grpc.netty
     compile lib.grpc.protobuf
     compile lib.grpc.stub
-    compile lib.netty.native
+
     compile lib.fastjson
-    compile "org.springframework.security.oauth:spring-security-oauth2"
     compile lib.influxdb
-    compile "cn.elmi.components:component-cache-spring-boot-starter:1.0-SNAPSHOT"
-    compile lib.spring.boot.starter.data.mongodb
     compile lib.guava
 
-    compile(lib.etcd4j) {
-        exclude group: 'io.netty', module: 'netty-handler'
-    }
+    compile lib.spring.boot.starter.data.mongodb
+
+    compile "org.springframework.security.oauth:spring-security-oauth2:2.3.3.RELEASE"
+    compile "cn.elmi.components:component-cache-spring-boot-starter:1.0-SNAPSHOT"
 
     testCompile lib.spring.boot.starter.test
 }

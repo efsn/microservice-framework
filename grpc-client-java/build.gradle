@@ -1,34 +1,37 @@
 dependencies {
     compile project(":grpc-etcd")
-    compile lib.grpc.core
+
+    compile lib.grpc.auth
     compile lib.grpc.stub
-    compile lib.grpc.netty
-    compile lib.netty.handler
+    compile lib.grpc.protobuf
+
+    compile(lib.grpc.netty) {
+        exclude group: "io.netty", module: "*"
+    }
+
+    compile lib.netty.nettyCodecHttp2
+
     compile lib.apache.commons.pool2
     compile lib.apache.commons.lang3
     compile lib.guava
 
     compile "cn.elmi.components:component-cache-spring-boot-starter:1.0-SNAPSHOT"
 
-    compile(lib.etcd4j) {
-        exclude group: 'io.netty', module: 'netty-handler'
+    compile("com.netflix.ribbon:ribbon:2.2.0") {
+        exclude group: "io.netty", module: "netty-common"
+        exclude group: "com.google.guava", module: "guava"
     }
 
-    compile('com.netflix.ribbon:ribbon:2.2.0') {
-        exclude group: 'io.netty', module: 'netty-common'
-        exclude group: 'com.google.guava', module: 'guava'
+    compile("com.netflix.ribbon:ribbon-core:2.2.0") {
+        exclude group: "com.google.guava", module: "guava"
     }
 
-    compile('com.netflix.ribbon:ribbon-core:2.2.0') {
-        exclude group: 'com.google.guava', module: 'guava'
+    compile("com.netflix.ribbon:ribbon-loadbalancer:2.2.0") {
+        exclude group: "com.google.guava", module: "guava"
     }
 
-    compile('com.netflix.ribbon:ribbon-loadbalancer:2.2.0') {
-        exclude group: 'com.google.guava', module: 'guava'
-    }
-
-    compile('com.netflix.ribbon:ribbon-transport:2.2.0') {
-        exclude group: 'com.google.guava', module: 'guava'
+    compile("com.netflix.ribbon:ribbon-transport:2.2.0") {
+        exclude group: "com.google.guava", module: "guava"
     }
 
     testCompile lib.spring.boot.starter.test

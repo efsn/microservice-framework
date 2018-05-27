@@ -71,7 +71,7 @@ public class EtcdRegisterConfiguration {
                     etcdRegister.getClient().put(key, value).ttl(ttl).send().get();
                     log.info("delete and regist put new path[{}] value[{}] ttl[{}]", key, value, ttl);
                 } catch (Exception e2) {
-                    log.error("Regist again fial.", e2);
+                    log.error("Regist again fail.", e2);
                 }
             }
 

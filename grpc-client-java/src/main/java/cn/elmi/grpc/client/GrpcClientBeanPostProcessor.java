@@ -24,12 +24,17 @@ import cn.elmi.grpc.client.route.DirectAlgorithm;
 import cn.elmi.grpc.client.route.Node;
 import cn.elmi.grpc.client.route.RibbonAlgorithm;
 import cn.elmi.grpc.client.route.RouteAlgorithm;
+import cn.elmi.grpc.client.utils.CertFileUtil;
 import cn.elmi.grpc.client.utils.GrpcClientUtil;
 import cn.elmi.grpc.etcd.EtcdAutoConfiguration;
 import com.google.common.cache.Cache;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.netty.GrpcSslContexts;
+import io.grpc.netty.NegotiationType;
+import io.grpc.netty.NettyChannelBuilder;
 import io.grpc.stub.AbstractStub;
+import io.netty.handler.ssl.SslContext;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -43,6 +48,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -53,7 +59,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -64,6 +73,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Configuration
 @ConditionalOnClass(GrpcClient.class)
+@EnableConfigurationProperties(GrpcClientProp.class)
 @Import({GrpcClientConfiguration.class, EtcdAutoConfiguration.class})
 @Slf4j
 public class GrpcClientBeanPostProcessor implements BeanPostProcessor {
@@ -123,14 +133,21 @@ public class GrpcClientBeanPostProcessor implements BeanPostProcessor {
                         grpcClientBean.setAuth(anno.auth());
                         grpcClientMap.put(beanName + "-" + realClassName, grpcClientBean);
                         ProxyFactory proxyFactory = getProxyFactoryForGrpcClient(target, field.getType(),
-                                field.getName());
+                                field.getName(), grpcClientBean.getRouter().getTransportNode());
 
                         addPoolAdvice(proxyFactory, beanName + "-" + realClassName);
                         proxyFactory.setFrozen(true);
                         proxyFactory.setProxyTargetClass(true);
 
                         ReflectionUtils.makeAccessible(field);
+                        /* TODO: proxy for subclass stub
                         ReflectionUtils.setField(field, target, proxyFactory.getProxy());
+                        */
+                        try {
+                            ReflectionUtils.setField(field, target, proxyFactory.getTargetSource().getTarget());
+                        } catch (Exception e) {
+                            log.error(e.getMessage(), e);
+                        }
                     }
                 }
             }
@@ -144,7 +161,7 @@ public class GrpcClientBeanPostProcessor implements BeanPostProcessor {
 
                     GrpcClientBean thriftClientBean = createGrpcClientBean(para.getType(), realClassName, anno);
                     grpcClientMap.put(beanName + "-" + realClassName, thriftClientBean);
-                    ProxyFactory proxyFactory = getProxyFactoryForGrpcClient(target, para.getType(), method.getName());
+                    ProxyFactory proxyFactory = getProxyFactoryForGrpcClient(target, para.getType(), method.getName(), thriftClientBean.getRouter().getTransportNode());
                     addPoolAdvice(proxyFactory, beanName + "-" + realClassName);
 
                     proxyFactory.setFrozen(true);
@@ -189,19 +206,45 @@ public class GrpcClientBeanPostProcessor implements BeanPostProcessor {
         return target;
     }
 
-    private ProxyFactory getProxyFactoryForGrpcClient(Object bean, Class<?> type, String name) {
+    /**
+     * @param bean  target bean
+     * @param clazz grpc client class
+     * @param name  grpc client field name
+     * @return #ProxyFactory
+     */
+    private ProxyFactory getProxyFactoryForGrpcClient(Object bean, Class<?> clazz, String name, Node node) {
         ProxyFactory proxyFactory;
         try {
-            String canonicalName = type.getCanonicalName();
-            Object client = GrpcClientUtil.createGrpcClient(canonicalName,
-                    // TODO localhost???
-                    ManagedChannelBuilder.forAddress("localhost", 9090).build());
+            String canonicalName = clazz.getCanonicalName();
+            Object client = GrpcClientUtil.createGrpcClient(canonicalName, grpcClientProp.isTls() ?
+                    createTLSChannel(node) : ManagedChannelBuilder.forAddress(node.getIp(), node.getPort()).build());
+
             proxyFactory = new ProxyFactory(client);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw new InvalidPropertyException(bean.getClass(), name, e.getMessage());
         }
         return proxyFactory;
+    }
+
+    public ManagedChannel createTLSChannel(Node node) {
+        SslContext sslContext = null;
+        try {
+            sslContext = GrpcSslContexts.forClient().trustManager(CertFileUtil.getFile(grpcClientProp.getCert())).build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        InetAddress address = null;
+        try {
+            address = InetAddress.getByAddress(grpcClientProp.getDomain(), InetAddress.getByName(node.getIp()).getAddress());
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+
+        ManagedChannel channel = NettyChannelBuilder.forAddress(new InetSocketAddress(address, node.getPort()))
+                .negotiationType(NegotiationType.TLS).sslContext(sslContext).build();
+        return channel;
     }
 
     private void addPoolAdvice(ProxyFactory proxyFactory, final String beanName) {
