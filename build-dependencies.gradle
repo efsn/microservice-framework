@@ -1,39 +1,47 @@
 ext {
-    springVersion = "4.3.17.RELEASE"
+    // spring libs
+    springVersion = "5.0.7.RELEASE"
     springSessionVersion = "1.3.1.RELEASE"
 
+    // google libs
+    guavaVersion = "23.0"
     grpcVersion = "1.12.0"
     protobufVersion = "3.5.1"
-    guavaVersion = "23.0"
-
-    groovyVersion = "3.0.0-alpha-1"
-
-    etcd4jVersion = "2.16.0"
-
     protobufVersion = "3.5.1"
     protobufJavaFormatVersion = "1.4"
 
+    // coreos libs
+    etcd4jVersion = "2.16.0"
+
+    // google libs
+    groovyVersion = "3.0.0-alpha-2"
+
+    // log libs
+    slf4jVersion = "1.7.21"
     logbackVersion = "1.2.3"
 
+    // netty libs
     nettyNativeVersion = "2.0.7.Final"
     nettyHandlerVersion = "4.1.22.Final"
 
-    validator = "5.4.1.Final"
-    testngVersion = "6.11"
-
-    servletVersion = "3.1.0"
-
-    slf4jVersion = "1.7.21"
-
-    lombokVersion = "1.16.16"
-
+    // json libs
     fastjsonVersion = "1.2.30"
 
-    influxdbVersion = "2.5"
+    // test libs
+    testngVersion = "6.11"
 
+    // database libs
+    mysqlConnectorVersion = "5.1.34"
+
+    // nosql libs
     jedisVersion = "2.9.0"
 
-    mysqlConnectorVersion = "5.1.34"
+    // other libs
+    lombokVersion = "1.16.16"
+    servletVersion = "3.1.0"
+    validator = "5.4.1.Final"
+    influxdbVersion = "2.5"
+
 
     lib = [
             grpc     : [
