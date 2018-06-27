@@ -27,4 +27,4 @@ etcd:
 
 spring.cloud.etcd.discovery.heartbeat: 5000
 spring.data.mongodb.uri: mongodb://127.0.0.1:27017/microservice
-
+spring.output.ansi.enabled: ALWAYS
