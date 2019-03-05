@@ -7,10 +7,10 @@ components:
         global: initialCapacity=100,maximumSize=200
 
   # Redis config
-  redis: 
-    host: 120.25.240.225
+  redis:
+    host: 127.0.0.1
     port: 6379
-    passwd: mrxudms@2015
+    passwd:
     timeout: 3600
     dbIndex: 13
     pool: 

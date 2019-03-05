@@ -20,8 +20,8 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.5"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.5"
         classpath "com.google.gradle:osdetector-gradle-plugin:1.4.0"
     }
 }
@@ -51,7 +51,7 @@ subprojects {
     }
 
     configurations {
-        all*.exclude module: ["commons-logging", "commons-lang"]
+        all*.exclude module: ["commons-logging", "commons-lang", "guava"]
     }
 
     dependencyManagement {

@@ -21,7 +21,7 @@ package cn.elmi.grpc.server.exception;
  * @since 1.0
  */
 public class GrpcServerException extends RuntimeException {
-    private static final long serialVersionUID = 6460232790368128267L;
+    private static final long serialVersionUID = 1L;
 
     public GrpcServerException(String message) {
         super(message);
