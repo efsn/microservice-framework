@@ -37,7 +37,7 @@ import io.grpc.stub.AbstractStub;
 import io.netty.handler.ssl.SslContext;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.pool2.impl.GenericKeyedObjectPool;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.framework.ProxyFactory;

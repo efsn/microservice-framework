@@ -20,7 +20,7 @@ import cn.elmi.grpc.server.monitor.MonitorListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.Jedis;
-import redis.clients.util.Pool;
+import redis.clients.jedis.util.Pool;
 
 import javax.annotation.PostConstruct;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -44,7 +44,7 @@ public class MonitorConfiguration {
      * 订阅监控服务器推送的消息(禁用/启用OTA，禁用/启用接口，上线/下线服务)
      */
     @PostConstruct
-    public void subscrible() {
+    public void subscribe() {
         new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), r -> {
             Thread t = new Thread(Thread.currentThread().getThreadGroup(), r, "api-monitor-subscribe", 0);
             if (t.isDaemon()) {

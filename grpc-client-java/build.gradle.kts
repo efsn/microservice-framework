@@ -3,7 +3,7 @@ dependencies {
 
     implementation(project(":grpc-etcd"))
     implementation("io.grpc:grpc-protobuf:${ext["grpcVersion"]}")
-    implementation("io.grpc:grpc-stub:${ext["grpcVersion"]}")
+    api("io.grpc:grpc-stub:${ext["grpcVersion"]}")
     implementation("io.grpc:grpc-auth:${ext["grpcVersion"]}")
 
     implementation("io.grpc:grpc-netty:${ext["grpcVersion"]}") {
@@ -13,8 +13,9 @@ dependencies {
     implementation("io.netty:netty-codec-http2:${ext["nettyHandlerVersion"]}")
     implementation("org.apache.commons:commons-pool2:2.5.0")
     implementation("org.apache.commons:commons-lang3:3.7")
-    implementation("com.google.guava:guava:${ext["guavaVersion"]}")
-    implementation("cn.elmi.components:component-cache-spring-boot-starter:1.0-SNAPSHOT")
+    api("com.google.guava:guava:${ext["guavaVersion"]}")
+    // implementation("cn.elmi.components:component-cache-spring-boot-starter:1.0-SNAPSHOT")
+    implementation(fileTree("dir" to "lib", "include" to "*.jar"))
 
     implementation("com.netflix.ribbon:ribbon:2.2.0") {
         exclude(group = "io.netty", module = "netty-common")
