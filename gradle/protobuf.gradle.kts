@@ -19,14 +19,6 @@ sourceSets {
     }
 }
 
-dependencies {
-    val ext = project.extra
-
-    implementation(project(":grpc-server"))
-    implementation("com.google.protobuf:protobuf-java:${ext["protobufVersion"]}")
-    implementation("com.google.protobuf:protoc:${ext["protobufVersion"]}")
-}
-
 protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:${project.extra["protobufVersion"]}"

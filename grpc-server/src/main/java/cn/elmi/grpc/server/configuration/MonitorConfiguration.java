@@ -41,7 +41,7 @@ public class MonitorConfiguration {
     private Pool<Jedis> pool;
 
     /**
-     * 订阅监控服务器推送的消息(禁用/启用OTA，禁用/启用接口，上线/下线服务)
+     * 订阅监控服务器推送的消息(禁用/启用渠道，禁用/启用接口，上线/下线服务)
      */
     @PostConstruct
     public void subscribe() {

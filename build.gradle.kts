@@ -1,9 +1,3 @@
-import com.google.protobuf.gradle.generateProtoTasks
-import com.google.protobuf.gradle.id
-import com.google.protobuf.gradle.ofSourceSet
-import com.google.protobuf.gradle.plugins
-import com.google.protobuf.gradle.protobuf
-import com.google.protobuf.gradle.protoc
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
@@ -12,14 +6,11 @@ plugins {
     `maven-publish`
     id("org.springframework.boot") version "2.2.1.RELEASE"
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
-    id("com.google.protobuf") version "0.8.10"
-    id("com.google.osdetector") version "1.6.2"
 }
 
 repositories {
     mavenLocal()
     mavenCentral()
-    // maven { url = uri("https://plugins.gradle.org/m2/") }
 }
 
 allprojects {
@@ -49,7 +40,6 @@ subprojects {
     apply(plugin = "java-library")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "com.google.protobuf")
     apply(plugin = "maven-publish")
     apply(from = rootProject.file("gradle/ktlint.gradle.kts"))
 
@@ -86,31 +76,7 @@ subprojects {
         }
     }
 
-    protobuf {
-        protoc {
-            artifact = "com.google.protobuf:protoc:${project.extra["protobufVersion"]}"
-        }
-
-        plugins {
-            id("grpc") {
-                artifact = "io.grpc:protoc-gen-grpc-java:${project.extra["grpcVersion"]}"
-            }
-        }
-
-        generateProtoTasks {
-            ofSourceSet("main").forEach {
-                it.plugins {
-                    id("grpc")
-                }
-            }
-        }
-    }
-
     tasks {
-        clean {
-            delete(protobuf.protobuf.generatedFilesBaseDir)
-        }
-
         bootJar {
             launchScript()
         }
@@ -121,14 +87,6 @@ subprojects {
             testLogging {
                 events("passed", "skipped", "failed")
             }
-        }
-
-        register<Jar>("protoJar") {
-            dependsOn.add(build)
-            archiveFileName.set("example-proto-${archiveVersion}.jar")
-            from("build/classes/java/main/")
-            destinationDirectory.dir("build/libs")
-            include("cn/elmi/grpc/**/*.class")
         }
     }
 
@@ -149,5 +107,4 @@ subprojects {
             }
         }
     }
-
 }
