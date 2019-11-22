@@ -1,11 +1,3 @@
-/**
- buildscript的类型为script block（最上层），用于配置gradle的project实例
- API文档为https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:buildscript(groovy.lang.Closure)
- 其余的根script block有"allprojects", "dependencies", "configurations"等，更多的可见https://docs.gradle.org/current/dsl/的“Build script structure”一节。
- Script Block是一种method的调用，传入的参数为configuration closure。执行后会对Project的属性进行配置
- 此处的"buildscript"用于配置Project的build script的classpath
- */
-
 buildscript {
     ext {
         springBootVersion = "2.0.3.RELEASE"

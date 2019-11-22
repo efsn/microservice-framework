@@ -1,21 +1,32 @@
-# Eclipse
-/bin/
-/.settings/
-/.project
-/.classpath
+### Gradle ###
+.gradle/
+build
+!gradle/wrapper/gradle-wrapper.jar
 
-# IDEA
-/.idea/
-/*.iml
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out
+logs
 
-# Maven
-/target/
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
-# Gradle
-/.gradle/
-/out/
+### NetBeans ###
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
-# Others
-/logs/
-/test/
-/test-output/
+### VS Code ###
+.vscode/
+.DS_Store
