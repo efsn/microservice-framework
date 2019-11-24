@@ -21,7 +21,7 @@ import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NegotiationType;
 import io.grpc.netty.NettyChannelBuilder;
 import io.netty.handler.ssl.SslContext;
-import org.testng.annotations.AfterTest;
+import org.junit.jupiter.api.AfterAll;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -102,7 +102,7 @@ public class BaseGrpcClientTest {
         return channel;
     }
 
-    @AfterTest
+    @AfterAll
     public void shutdown() throws InterruptedException {
         channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
     }

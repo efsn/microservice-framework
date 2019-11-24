@@ -1,10 +1,13 @@
-dependencies {
-    val ext = project.extra
+val lib = ext["lib"] as Map<String, String>
 
-    implementation("io.grpc:grpc-netty:${ext["grpcVersion"]}")
-    implementation("io.grpc:grpc-protobuf:${ext["grpcVersion"]}")
-    implementation("io.grpc:grpc-stub:${ext["grpcVersion"]}")
-    implementation("io.grpc:grpc-auth:${ext["grpcVersion"]}")
-    implementation("io.netty:netty-tcnative:${ext["nettyNativeVersion"]}")
-    implementation("com.google.guava:guava:${ext["guavaVersion"]}")
+dependencies {
+    implementation(lib.getValue("grpc-netty"))
+    implementation(lib.getValue("grpc-protobuf"))
+    implementation(lib.getValue("grpc-stub"))
+    implementation(lib.getValue("grpc-auth"))
+    implementation(lib.getValue("netty-tcnative"))
+    implementation(lib.getValue("guava"))
+
+    implementation(lib.getValue("junit-jupiter-api"))
+    runtimeOnly(lib.getValue("junit-jupiter-engine"))
 }

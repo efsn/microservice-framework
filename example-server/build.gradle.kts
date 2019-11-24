@@ -19,22 +19,22 @@ sourceSets {
     }
 }
 
-dependencies {
-    val ext = project.extra
+val lib = ext["lib"] as Map<String, String>
 
+dependencies {
     implementation(project(":grpc-server"))
-    implementation("com.google.protobuf:protobuf-java:${ext["protobufVersion"]}")
-    implementation("com.google.protobuf:protoc:${ext["protobufVersion"]}")
+    implementation(lib.getValue("protobuf-java"))
+    implementation(lib.getValue("protoc"))
 }
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:${project.extra["protobufVersion"]}"
+        artifact = lib.getValue("protoc")
     }
 
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:${project.extra["grpcVersion"]}"
+            artifact = lib.getValue("protoc-gen-grpc-java")
         }
     }
 
@@ -59,10 +59,17 @@ tasks {
     }
 
     register<Jar>("protoJar") {
+        enabled = true
         dependsOn.add(build)
-        archiveFileName.set("example-proto-${archiveVersion}.jar")
+        archiveFileName.set("example-proto-${archiveVersion.get()}.jar")
         from("build/classes/java/main/")
         destinationDirectory.dir("build/libs")
         include("cn/elmi/grpc/**/*.class")
+    }
+
+    bootJar {
+        manifest {
+            attributes("Start-Class" to "cn.elmi.Application")
+        }
     }
 }

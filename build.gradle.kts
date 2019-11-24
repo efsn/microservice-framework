@@ -13,28 +13,6 @@ repositories {
     mavenCentral()
 }
 
-allprojects {
-    ext {
-        set("guavaVersion", "28.1-jre")
-        set("grpcVersion", "1.25.0")
-        set("protobufVersion", "3.9.2")
-        set("protobufJavaFormatVersion", "1.4")
-
-        set("nettyNativeVersion", "2.0.27.Final")
-        set("nettyHandlerVersion", "4.1.43.Final")
-
-        set("etcd4jVersion", "2.17.0")
-        set("jedisVersion", "3.1.0")
-        set("mysqlConnectorVersion", "5.1.48")
-
-        set("lombokVersion", "1.18.8")
-        set("servletVersion", "3.1.0")
-        set("validator", "5.4.3.Final")
-        set("influxdbVersion", "2.16")
-        set("fastjsonVersion", "1.2.62")
-    }
-}
-
 subprojects {
     apply(plugin = "java")
     apply(plugin = "java-library")
@@ -42,6 +20,9 @@ subprojects {
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "maven-publish")
     apply(from = rootProject.file("gradle/ktlint.gradle.kts"))
+    apply(from = rootProject.file("gradle/dependencies.gradle.kts"))
+
+    val lib = ext["lib"] as Map<String, String>
 
     group = "cn.elmi.microservice"
     version = "1.0.0-SNAPSHOT"
@@ -57,17 +38,17 @@ subprojects {
     }
 
     dependencies {
-        implementation("org.springframework.boot:spring-boot-starter")
-        implementation("org.slf4j:slf4j-api")
-        implementation("ch.qos.logback:logback-core")
-        implementation("ch.qos.logback:logback-classic")
+        implementation(lib.getValue("spring-boot-starter"))
+        implementation(lib.getValue("slf4j-api"))
+        implementation(lib.getValue("logback-core"))
+        implementation(lib.getValue("logback-classic"))
 
-        testImplementation("org.springframework.boot:spring-boot-starter-test")
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
+        testImplementation(lib.getValue("spring-boot-starter-test"))
+        testImplementation(lib.getValue("junit-jupiter-api"))
+        testRuntimeOnly(lib.getValue("junit-jupiter-engine"))
 
-        compileOnly("org.projectlombok:lombok:${project.extra["lombokVersion"]}")
-        annotationProcessor("org.projectlombok:lombok:${project.extra["lombokVersion"]}")
+        compileOnly(lib.getValue("lombok"))
+        annotationProcessor(lib.getValue("lombok"))
     }
 
     the<DependencyManagementExtension>().apply {

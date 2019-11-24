@@ -16,11 +16,11 @@
 
 package cn.elmi.grpc.test;
 
+import com.google.common.base.Strings;
 import io.grpc.*;
 import io.grpc.ForwardingClientCall.SimpleForwardingClientCall;
 import io.grpc.ForwardingClientCallListener.SimpleForwardingClientCallListener;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.util.Strings;
 
 /**
  * @author Arthur
@@ -49,7 +49,7 @@ public class HeaderClientInterceptor implements ClientInterceptor {
             @Override
             public void start(Listener<RespT> responseListener, Metadata headers) {
                 headers.put(CLIENT_ID, clientId);
-                if (Strings.isNotNullAndNotEmpty(accessToken)) {
+                if (!Strings.isNullOrEmpty(accessToken)) {
                     headers.put(ACCESS_TOKEN, accessToken);
                 }
                 super.start(new SimpleForwardingClientCallListener<RespT>(responseListener) {

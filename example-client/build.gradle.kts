@@ -1,13 +1,14 @@
-dependencies {
-    val ext = project.extra
+val lib = ext["lib"] as Map<String, String>
 
+dependencies {
     implementation(project(":grpc-client-java"))
-    implementation("com.google.protobuf:protobuf-java:${ext["protobufVersion"]}")
-    implementation("com.googlecode.protobuf-java-format:protobuf-java-format:${ext["protobufJavaFormatVersion"]}")
-    implementation("io.netty:netty-tcnative-boringssl-static:${ext["nettyNativeVersion"]}")
-    implementation(fileTree("dir" to "lib", "include" to "*.jar"))
+    implementation(lib.getValue("protobuf-java"))
+    implementation(lib.getValue("protobuf-java-format"))
+    implementation(lib.getValue("netty-tcnative-boringssl-static"))
+    implementation(lib.getValue("guava"))
+
 //    implementation(files("libs/example-proto.jar")
-    implementation("com.google.guava:guava:${ext["guavaVersion"]}")
+    implementation(fileTree("dir" to "lib", "include" to "*.jar"))
 
     testImplementation(project(":grpc-test"))
 }
