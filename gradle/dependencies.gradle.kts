@@ -1,9 +1,9 @@
 val version = mapOf(
     "spring-boot" to "2.2.1.RELEASE",
     "spring-dependency-management" to "1.0.8.RELEASE",
-    "spring-security-oauth2" to "2.3.3.RELEASE",
+    "spring-security-oauth2" to "2.4.0.RELEASE",
 
-    "ribbon" to "2.2.0",
+    "ribbon" to "2.7.17",
     "grpc" to "1.25.0",
     "protobuf" to "3.9.2",
     "protobufJavaFormat" to "1.4",
@@ -15,8 +15,8 @@ val version = mapOf(
     "jedis" to "3.1.0",
     "etcd4j" to "2.17.0",
 
-    "commons-pool2" to "2.5.0",
-    "commons-lang3" to "3.7",
+    "commons-pool2" to "2.7.0",
+    "commons-lang3" to "3.9",
     "lombok" to "1.18.8",
     "servlet" to "3.1.0",
     "validator" to "5.4.3.Final",
