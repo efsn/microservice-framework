@@ -78,7 +78,7 @@ subprojects {
                 url = uri("${project.findProperty("GITHUB_URI")}/microservice-framework")
                 credentials {
                     username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-                    username = project.findProperty("gpr.key") as String? ?: System.getenv("PASSWORD")
+                    password = project.findProperty("gpr.key") as String? ?: System.getenv("PASSWORD")
                 }
             }
         }
